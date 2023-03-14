@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "./components/Header";
-import Categories from "./components/Categories";
-import Sorting from "./components/Sorting";
-import Card from "./components/Card";
-import pizzas from "./assets/pizzas.json";
+import { Route, Routes } from "react-router-dom";
+import Cart from "./pages/Cart";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -11,18 +11,11 @@ function App() {
       <div className="container">
         <Header />
         <main className="content">
-          <section className="content__top">
-            <Categories />
-            <Sorting />
-          </section>
-          <section className="cards">
-            <h1 className="title cards__title">Все пиццы</h1>
-            <div className="cards__list">
-              {pizzas.map((pizza) => (
-                <Card {...pizza} />
-              ))}
-            </div>
-          </section>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </main>
       </div>
     </div>

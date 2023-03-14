@@ -4,35 +4,35 @@ function Card({ title, price, imageUrl, sizes, types }) {
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
-  const typeNames = ['тонкое', 'традиционное'];
+  const typeNames = ["тонкое", "традиционное"];
 
   return (
     <article className="card">
-      <img
-        src={imageUrl}
-        alt={title}
-        className="card__image"
-      />
+      <img src={imageUrl} alt={title} className="card__image" />
       <h2 className="card__title">{title}</h2>
       <div className="card__block">
         <ul className="card__block-list">
-          {types.map(type => (
-            <li className="card__block-item">
+          {types.map((typeId) => (
+            <li className="card__block-item" key={typeId}>
               <button
-                className={`card__block-button button ${activeType === type ? 'card__block-button_active' : ''}`}
+                className={`card__block-button button ${
+                  activeType === typeId ? "card__block-button_active" : ""
+                }`}
                 type="button"
-                onClick={() => setActiveType(type)}
+                onClick={() => setActiveType(typeId)}
               >
-                {typeNames[type]}
+                {typeNames[typeId]}
               </button>
             </li>
           ))}
         </ul>
         <ul className="card__block-list">
           {sizes.map((size, index) => (
-            <li className="card__block-item">
+            <li className="card__block-item" key={index}>
               <button
-                className={`card__block-button button ${activeSize === index ? 'card__block-button_active' : ''}`}
+                className={`card__block-button button ${
+                  activeSize === index ? "card__block-button_active" : ""
+                }`}
                 type="button"
                 onClick={() => setActiveSize(index)}
               >
