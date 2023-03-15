@@ -228,7 +228,7 @@ body {
   overflow-x: auto;
   overflow-y: hidden;
 
-  &__link {
+  &__button {
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
@@ -237,7 +237,6 @@ body {
     color: $darkGrayColor;
     border-radius: 30px;
     padding: 13px 22px;
-    text-decoration: none;
 
     &_active {
       background-color: $darkGrayColor;

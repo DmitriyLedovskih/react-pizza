@@ -11,15 +11,15 @@ function Categories() {
     <ul className="categories">
       {categoryNames.map((name, index) => (
         <li className="categories__item" key={index}>
-          <a
-            href="#"
-            className={`categories__link button button_type_light ${
-              categoryId === index ? "categories__link_active" : ""
+          <button
+            type="button"
+            className={`categories__button button button_type_light ${
+              categoryId === index ? "categories__button_active" : ""
             }`}
             onClick={() => dispatch(onClickCategory(index))}
           >
             {name}
-          </a>
+          </button>
         </li>
       ))}
     </ul>
