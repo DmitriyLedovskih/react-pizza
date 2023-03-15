@@ -3,58 +3,58 @@ import Categories from "../components/Categories";
 import Sorting from "../components/Sorting";
 import Card from "../components/Card";
 import Skeleton from "../components/Skeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { getItems } from "../redux/slices/itemsSlice";
 
 function Home() {
-  const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [sortValue, setSortValue] = React.useState({
-    name: "популярности",
-    sortProperty: "rating",
-    order: "desc",
-  });
-
-  const order = sortValue.order.includes("asc") ? "desc" : "asc";
-
-  function onClickSortButtons(data) {
-    setSortValue({
-      name: data.name,
-      sortProperty: data.sortProperty,
-      order: order,
-    });
-  }
+  const { categoryId, categoryNames, sortingItem } = useSelector(
+    (state) => state.category
+  );
+  const searchValue = useSelector((state) => state.search.searchValue);
+  const items = useSelector((state) => state.items.items);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setIsLoading(true);
     fetch(
       `https://640f1a654ed25579dc45daf1.mockapi.io/items?${
         categoryId > 0 ? `category=${categoryId}` : ""
-      }&sortBy=${sortValue.sortProperty}&order=${order}`,
+      }&sortBy=${sortingItem.sortProperty}&order=${sortingItem.order}${
+        searchValue ? `&search=${searchValue}` : ""
+      }`,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        "Content-Type": "application/json;charset=UTF-8",
       }
     )
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       .then((data) => {
-        setItems(data);
+        dispatch(getItems(data));
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [categoryId, sortValue]);
+  }, [categoryId, sortingItem, searchValue]);
 
   return (
     <>
-      <section className="content__top">
-        <Categories
-          categoryId={categoryId}
-          onClickCategory={(id) => setCategoryId(id)}
-        />
-        <Sorting sortValue={sortValue} onClickSortButton={onClickSortButtons} />
-      </section>
+      {!searchValue && (
+        <section className="content__top">
+          <Categories />
+          <Sorting />
+        </section>
+      )}
       <section className="cards">
-        <h2 className="title cards__title">Все пиццы</h2>
+        {!searchValue ? (
+          <h2 className="title cards__title">
+            {categoryNames[categoryId]} пиццы
+          </h2>
+        ) : (
+          <h2 className="title cards__title">
+            {items.length > 0
+              ? `Результат поиска: ${searchValue}`
+              : `По запросу ${searchValue} ничего не найдено`}
+          </h2>
+        )}
         <div className="cards__list">
           {isLoading
             ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)

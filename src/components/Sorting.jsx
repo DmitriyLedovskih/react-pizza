@@ -1,15 +1,21 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { onClickSort } from "../redux/slices/categorySlice";
 
-function Sorting({ sortValue, onClickSortButton, a }) {
+function Sorting() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const sortItem = useSelector((state) => state.category.sortingItem);
+  const dispatch = useDispatch();
+  const order = sortItem.order.includes("asc") ? "desc" : "asc";
+
   const sortingItems = [
-    { name: "популярности", sortProperty: "rating", order: "desc" },
-    { name: "цене", sortProperty: "price", order: "desc" },
-    { name: "алфавиту", sortProperty: "title", order: "desc" },
+    { name: "популярности", sortProperty: "rating", order },
+    { name: "цене", sortProperty: "price", order },
+    { name: "алфавиту", sortProperty: "title", order },
   ];
 
-  function onClickSortingButton(index) {
-    onClickSortButton(index);
+  function onClickSortingButton(item) {
+    dispatch(onClickSort(item));
     setIsVisible(false);
   }
 
@@ -17,7 +23,7 @@ function Sorting({ sortValue, onClickSortButton, a }) {
     <div className="sorting">
       <p
         className={`sorting__text ${
-          sortValue.order.includes("desc")
+          sortItem.order.includes("desc")
             ? "sorting__text_type_asc"
             : "sorting__text_type_desc"
         }`}
@@ -27,7 +33,7 @@ function Sorting({ sortValue, onClickSortButton, a }) {
           className="sorting__text-link"
           onClick={() => setIsVisible(!isVisible)}
         >
-          {sortValue.name}
+          {sortItem.name}
         </span>
       </p>
       <ul
@@ -38,7 +44,7 @@ function Sorting({ sortValue, onClickSortButton, a }) {
             <button
               type="button"
               className={`sorting__list-button button ${
-                sortValue.sortProperty === item.sortProperty
+                sortItem.sortProperty === item.sortProperty
                   ? "sorting__list-button_active"
                   : ""
               }`}

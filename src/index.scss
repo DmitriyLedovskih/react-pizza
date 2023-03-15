@@ -52,9 +52,10 @@ body {
     object-fit: cover;
     transform: rotate(180deg);
     transition: all .4s ease-in-out;
+
     @media screen and (max-width: 520px) {
       display: none;
-    } 
+    }
   }
 
   &__title {
@@ -65,6 +66,7 @@ body {
     text-transform: uppercase;
     color: $blackColor;
     margin: 0;
+
     @media screen and (max-width: 520px) {
       font-size: 16px;
       line-height: 18px;
@@ -77,6 +79,7 @@ body {
     line-height: 19px;
     color: $grayColor;
     margin: 0;
+
     @media screen and (max-width: 520px) {
       font-size: 12px;
       line-height: 14px;
@@ -96,10 +99,10 @@ body {
   text-decoration: none;
   transition: all .4s ease-in-out;
   position: relative;
-
-  &:active {
-    transform: translateY(1.5px);
-  }
+  font-family: inherit;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
   &_type_light {
     background-color: $lightColor;
@@ -140,12 +143,20 @@ body {
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
   border-bottom: 1px solid $lightGrayColor;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  display: grid;
+  gap: 10px;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid $lightGrayColor;
+    padding-bottom: 20px;
+  }
 
   &__cart {
     display: flex;
@@ -190,25 +201,21 @@ body {
       gap: 8px;
     }
   }
-  
+
   @media screen and (max-width: 520px) {
     padding-bottom: 20px;
   }
 }
 
 .content {
+  display: grid;
+  gap: 20px;
   &__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 40px;
-    margin-bottom: 32px;
-      
-    @media screen and (max-width: 520px) {
-      margin: 20px 0;
-    }
   }
 }
 
@@ -469,49 +476,58 @@ body {
   box-sizing: border-box;
   display: grid;
   gap: 20px;
+
   &__row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
   }
+
   &__header {
     @media screen and (max-width: 370px) {
       gap: 10px;
       flex-direction: column;
-    }    
+    }
   }
+
   &__title {
     margin: 0;
   }
+
   &__cards {
     display: grid;
     gap: 20px;
   }
+
   &__card {
     position: relative;
     padding: 20px 0;
     box-sizing: border-box;
+
     &-image {
       width: 100px;
       height: 100px;
       object-fit: cover;
-      
+
       @media screen and (max-width: 570px) {
         width: 100%;
         height: 250px;
       }
     }
+
     &-title {
       margin: 0 0 5px;
       font-size: 18px;
       line-height: 21px;
     }
+
     &-subtitle {
       margin: 0;
       font-size: 16px;
       line-height: 18px;
     }
+
     &-block {
       @media screen and (max-width: 570px) {
         gap: 10px;
@@ -519,16 +535,19 @@ body {
         text-align: center;
       }
     }
+
     &-button {
       padding: 5px 10px;
       border-radius: 5px;
       font-size: 16px;
+
       &Counter {
         width: 30px;
         height: 30px;
       }
+
       &Delete {
-        background: url('./assets/images/close_icon.svg') no-repeat center/cover;
+        background-image: url('./assets/images/close_icon.svg');
         width: 35px;
         height: 35px;
         position: absolute;
@@ -536,17 +555,20 @@ body {
         top: 0;
       }
     }
+
     @media screen and (max-width: 570px) {
       flex-direction: column;
       gap: 10px;
     }
   }
+
   &__footer {
     @media screen and (max-width: 570px) {
       gap: 10px;
       flex-direction: column;
     }
   }
+
   &__text {
     font-size: 18px;
     line-height: 21px;
@@ -555,21 +577,26 @@ body {
     gap: 5px;
     margin: 0;
   }
+
   &__button {
     padding: 15px;
     border-radius: 10px;
     min-width: 170px;
+
     &-clear {
       padding: 10px;
       border-radius: 10px;
+
       @media screen and (max-width: 370px) {
         width: 100%;
       }
     }
+
     @media screen and (max-width: 570px) {
       width: 100%;
     }
   }
+
   &__empty {
     display: flex;
     flex-direction: column;
@@ -577,21 +604,25 @@ body {
     align-items: center;
     text-align: center;
     min-height: 60vh;
+
     &-title {
       margin: 0 0 20px;
       font-size: 32px;
       line-height: 36px;
+
       @media screen and (max-width: 470px) {
         font-size: 24px;
         line-height: 26px;
         margin-bottom: 10px;
       }
     }
+
     &-descr {
       margin: 0 0 20px;
       font-size: 16px;
       line-height: 21px;
     }
+
     &-button {
       padding: 10px;
       border-radius: 10px;
@@ -611,28 +642,112 @@ body {
   text-align: center;
   padding: 40px 0;
   box-sizing: border-box;
+
   &__title {
     margin: 0;
     font-size: 42px;
     line-height: 46px;
+
     @media screen and (max-width: 470px) {
       font-size: 24px;
       line-height: 26px;
     }
   }
+
   &__descr {
     margin: 0;
     font-size: 21px;
     line-height: 24px;
+
     @media screen and (max-width: 470px) {
       font-size: 16px;
       line-height: 18px;
     }
   }
+
   &__button {
     padding: 10px;
     border-radius: 10px;
     font-size: 16px;
     line-height: 18px;
+  }
+}
+
+.search {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  width: 50%;
+
+  &::after {
+    content: '';
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: $primaryColor;
+    transform: scaleY(0);
+    transform-origin: 100% 100%;
+    transition: transform .4s ease-in-out;
+  }
+
+  &_focus {
+    &::after {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    font-family: inherit;
+    padding: 15px 40px;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    border-left: 1px solid $lightGrayColor;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: 18px;
+    transition: all .5s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+
+    &_active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+
+  &__button {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all .5s ease-in-out;
+    z-index: 1;
+
+    &_type {
+      &_submit {
+        background-image: url('./assets/images/search_icon.svg');
+        left: 5px;
+      }
+
+      &_clear {
+        background-image: url('./assets/images/close_icon.svg');
+        right: 0;
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+    &_visibled {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
