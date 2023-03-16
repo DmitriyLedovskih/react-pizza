@@ -7,20 +7,33 @@ function Sorting() {
   const sortItem = useSelector((state) => state.category.sortingItem);
   const dispatch = useDispatch();
   const order = sortItem.order.includes("asc") ? "desc" : "asc";
-
   const sortingItems = [
     { name: "популярности", sortProperty: "rating", order },
     { name: "цене", sortProperty: "price", order },
     { name: "алфавиту", sortProperty: "title", order },
   ];
+  const sortingRef = React.useRef();
 
   function onClickSortingButton(item) {
     dispatch(onClickSort(item));
     setIsVisible(false);
   }
 
+  function onClickOutside(evt) {
+    if (!evt.path.includes(sortingRef.current)) {
+      setIsVisible(false);
+    }
+  }
+
+  React.useEffect(() => {
+    document.body.addEventListener("click", onClickOutside);
+    return () => {
+      document.body.removeEventListener("click", onClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="sorting">
+    <div className="sorting" ref={sortingRef}>
       <p
         className={`sorting__text ${
           sortItem.order.includes("desc")

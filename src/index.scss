@@ -208,7 +208,8 @@ body {
 }
 
 .content {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   &__top {
     display: flex;
@@ -748,5 +749,8 @@ body {
       opacity: 1;
       visibility: visible;
     }
+  }
+  @media screen and (max-width: 570px) {
+    width: 100%;
   }
 }
