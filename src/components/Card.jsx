@@ -1,10 +1,30 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, selectCartItemById } from "../redux/slices/cartSlice";
 
-function Card({ title, price, imageUrl, sizes, types }) {
+function Card({ id, title, price, imageUrl, sizes, types }) {
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
+  const cartItem = useSelector(selectCartItemById(id));
+
+  const count = cartItem && cartItem.count;
+
+  const dispatch = useDispatch();
 
   const typeNames = ["тонкое", "традиционное"];
+
+  function addCart() {
+    dispatch(
+      addToCart({
+        id,
+        title,
+        price,
+        imageUrl,
+        size: sizes[activeSize],
+        type: typeNames[activeType],
+      })
+    );
+  }
 
   return (
     <article className="card">
@@ -44,10 +64,13 @@ function Card({ title, price, imageUrl, sizes, types }) {
       </div>
       <div className="card__footer">
         <span className="card__price">от {price} ₽</span>
-        <button className="card__button button button_type_primary-outlined">
+        <button
+          className="card__button button button_type_primary-outlined"
+          onClick={addCart}
+        >
           <span className="card__button-icon">+</span>
           Добавить
-          <span className="card__button-counter">0</span>
+          {count && <span className="card__button-counter">{count}</span>}
         </button>
       </div>
     </article>

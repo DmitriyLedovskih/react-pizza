@@ -1,10 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { onClickCategory } from "../redux/slices/categorySlice";
+import { onClickCategory, selectFilter } from "../redux/slices/filterSlice";
 
 function Categories() {
-  const categoryId = useSelector((state) => state.category.categoryId);
-  const categoryNames = useSelector((state) => state.category.categoryNames);
+  const { categoryId, categoryNames } = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   return (

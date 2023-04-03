@@ -3,8 +3,12 @@ import logo from "../assets/images/logo.svg";
 import iconCart from "../assets/images/icon_cart.svg";
 import { Link } from "react-router-dom";
 import Search from "./SearchForm";
+import { useSelector } from "react-redux";
+import { selectCart } from "../redux/slices/cartSlice";
 
 function Header() {
+  const { totalPrice, items } = useSelector(selectCart);
+  const totalCount = items.reduce((acc, item) => acc + item.count, 0);
   return (
     <header className="header">
       <div className="header__row">
@@ -17,8 +21,9 @@ function Header() {
         </Link>
         <Link to="/cart" className="header__cart button button_type_primary">
           <div className="header__cart-block">
-            <span className="header__cart-text">0 ₽</span>
+            <span className="header__cart-text">{totalPrice} ₽</span>
           </div>
+          <div className="header__cart-line"></div>
           <div className="header__cart-block">
             <span className="header__cart-text">
               <img
@@ -26,7 +31,7 @@ function Header() {
                 alt="Иконка корзины"
                 className="header__cart-icon"
               />
-              0
+              {totalCount}
             </span>
           </div>
         </Link>

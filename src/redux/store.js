@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import categoryReducer from "./slices/categorySlice";
+import filterReducer from "./slices/filterSlice";
 import searchReducer from "./slices/searchSlice";
 import itemsReducer from "./slices/itemsSlice";
+import cartReducer from "./slices/cartSlice";
 
 export default configureStore({
   reducer: {
-    category: categoryReducer,
+    filter: filterReducer,
     search: searchReducer,
     items: itemsReducer,
+    cart: cartReducer,
   },
 });

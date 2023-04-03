@@ -17,10 +17,11 @@ const initialState = {
     sortProperty: "rating",
     order: "desc",
   },
+  currentPage: 1,
 };
 
-export const categorySlice = createSlice({
-  name: "category",
+export const filterSlice = createSlice({
+  name: "filter",
   initialState,
   reducers: {
     onClickCategory(state, actions) {
@@ -29,9 +30,15 @@ export const categorySlice = createSlice({
     onClickSort(state, actions) {
       state.sortingItem = actions.payload;
     },
+    setCurrentPage(state, actions) {
+      state.currentPage = actions.payload;
+    },
   },
 });
 
-export const { onClickCategory, onClickSort } = categorySlice.actions;
+export const selectFilter = (state) => state.filter;
 
-export default categorySlice.reducer;
+export const { onClickCategory, onClickSort, setCurrentPage } =
+  filterSlice.actions;
+
+export default filterSlice.reducer;

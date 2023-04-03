@@ -2,6 +2,7 @@ import debounce from "lodash.debounce";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { onClickCategory } from "../redux/slices/filterSlice";
 import { onChangeSearch } from "../redux/slices/searchSlice";
 
 function SearchForm() {
@@ -22,15 +23,20 @@ function SearchForm() {
   function onChange(evt) {
     searchDobounce(evt.target.value);
     setLocalValue(evt.target.value);
-    // evt.target.value ? navigate("/search") : navigate("/");
+    evt.target.value ? navigate("/search") : navigate("/");
+    dispatch(onClickCategory(0));
   }
 
   function onClickClear() {
     dispatch(onChangeSearch(""));
     setLocalValue("");
     inputRef.current.focus();
-    // navigate("/");
+    navigate("/");
   }
+
+  window.onload = () => {
+    navigate("/");
+  };
 
   return (
     <div className={`search ${isFocus ? "search_focus" : ""}`}>
