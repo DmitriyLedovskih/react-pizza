@@ -6,12 +6,12 @@ import {
   removeItem,
 } from "../redux/slices/cartSlice";
 
-function CartCard({ id, imageUrl, title, type, size, price, count }) {
+function CartCard({ id, images, title, type, size, price, count }) {
   const dispatch = useDispatch();
   return (
     <article className="cart__card cart__row">
       <div className="cart__card-block cart__row">
-        <img src={imageUrl} alt={title} className="cart__card-image" />
+        <img src={images[0]} alt={title} className="cart__card-image" />
         <div className="cart__card-content">
           <h2 className="cart__card-title">{title}</h2>
           <p className="cart__card-subtitle">

@@ -20,6 +20,9 @@ const initialState = {
   items: [],
   item: {},
   status: "loading",
+  activeType: 0,
+  activeSize: 0,
+  typeNames: ["тонкое", "традиционное"],
 };
 
 export const itemsSlice = createSlice({
@@ -31,6 +34,13 @@ export const itemsSlice = createSlice({
     },
     setItem(state, actions) {
       state.item = actions.payload;
+      localStorage.setItem("item", JSON.stringify(actions.payload));
+    },
+    setActiveType(state, actions) {
+      state.activeType = actions.payload;
+    },
+    setActiveSize(state, actions) {
+      state.activeSize = actions.payload;
     },
   },
   extraReducers: {
@@ -51,6 +61,7 @@ export const itemsSlice = createSlice({
 
 export const selectItemsData = (state) => state.items;
 
-export const { setItems, setItem } = itemsSlice.actions;
+export const { setItems, setItem, setActiveSize, setActiveType } =
+  itemsSlice.actions;
 
 export default itemsSlice.reducer;

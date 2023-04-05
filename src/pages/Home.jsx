@@ -2,7 +2,7 @@ import React from "react";
 import Categories from "../components/Categories";
 import Sorting from "../components/Sorting";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems, selectItemsData } from "../redux/slices/itemsSlice";
+import { fetchItems } from "../redux/slices/itemsSlice";
 import Cards from "../components/Cards";
 import { selectSearch } from "../redux/slices/searchSlice";
 import { selectFilter } from "../redux/slices/filterSlice";

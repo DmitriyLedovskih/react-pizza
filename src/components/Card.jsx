@@ -1,72 +1,37 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, selectCartItemById } from "../redux/slices/cartSlice";
+import { Link } from "react-router-dom";
+import { setItem } from "../redux/slices/itemsSlice";
+import ParamsBlock from "./ParamsBlock";
 
-function Card({ id, title, price, imageUrl, sizes, types }) {
-  const [activeType, setActiveType] = React.useState(0);
-  const [activeSize, setActiveSize] = React.useState(0);
+function Card({ id, title, price, images, sizes, types, rating, info }) {
   const cartItem = useSelector(selectCartItemById(id));
 
   const count = cartItem && cartItem.count;
 
   const dispatch = useDispatch();
 
-  const typeNames = ["тонкое", "традиционное"];
-
-  function addCart() {
-    dispatch(
-      addToCart({
-        id,
-        title,
-        price,
-        imageUrl,
-        size: sizes[activeSize],
-        type: typeNames[activeType],
-      })
-    );
-  }
+  const cardItem = { id, title, price, images, sizes, types, rating, info };
 
   return (
     <article className="card">
-      <img src={imageUrl} alt={title} className="card__image" />
-      <h2 className="card__title">{title}</h2>
-      <div className="card__block">
-        <ul className="card__block-list">
-          {types.map((typeId) => (
-            <li className="card__block-item" key={typeId}>
-              <button
-                className={`card__block-button button ${
-                  activeType === typeId ? "card__block-button_active" : ""
-                }`}
-                type="button"
-                onClick={() => setActiveType(typeId)}
-              >
-                {typeNames[typeId]}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <ul className="card__block-list">
-          {sizes.map((size, index) => (
-            <li className="card__block-item" key={index}>
-              <button
-                className={`card__block-button button ${
-                  activeSize === index ? "card__block-button_active" : ""
-                }`}
-                type="button"
-                onClick={() => setActiveSize(index)}
-              >
-                {size} см.
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <img src={images[0]} alt={title} className="card__image" />
+      <h2 className="card__title">
+        <Link
+          to={`/pizza/${id}`}
+          className="card__link"
+          onClick={() => dispatch(setItem(cardItem))}
+        >
+          {title}
+        </Link>
+      </h2>
+      <ParamsBlock />
       <div className="card__footer">
         <span className="card__price">от {price} ₽</span>
         <button
           className="card__button button button_type_primary-outlined"
-          onClick={addCart}
+          onClick={() => dispatch(addToCart(cardItem))}
         >
           <span className="card__button-icon">+</span>
           Добавить

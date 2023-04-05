@@ -99,6 +99,7 @@ body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
   cursor: pointer;
   text-decoration: none;
   transition: all .4s ease-in-out;
@@ -394,8 +395,13 @@ body {
     line-height: 24px;
     text-align: center;
     letter-spacing: 0.01em;
-    color: $blackColor;
+    color: $primaryColor;
     margin: 0;
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
   }
 
   &__block {
@@ -813,5 +819,166 @@ body {
       border-color: $darkGrayColor;
       pointer-events: none;
     }
+  }
+}
+
+.slider {
+  &__image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: zoom-in;
+    display: block;
+    @media screen and (max-width: 1000px) {
+      height: 320px;
+    }
+  }
+  &__mini {
+    &-list {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 20px 0 0;
+      padding: 0;
+      flex-wrap: wrap;
+      @media screen and (max-width: 760px) {
+        gap: 10px;
+      }
+    }
+    &-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 10px;
+      box-sizing: border-box;
+      border: 3px solid transparent;
+      display: block;
+      &_active {
+        border-color: $primaryColor;
+      }
+    }
+  }
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  line-height: 18px;
+  color: $grayColor;
+  flex-wrap: wrap;
+  &__icons {
+    display: flex;
+    align-items: center;
+  }
+  &__icon {
+    width: 25px;
+    height: 25px;
+    fill: $lightGrayColor;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    &_hover {
+      fill: $grayColor;
+    }
+    &_active {
+      fill: #ffb300;
+    }
+  }
+}
+
+.pizza-page {
+  &__title {
+    margin: 0 0 20px;
+    font-size: 32px;
+    line-height: 36px;
+  }
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-content: space-between;
+    align-items: flex-start;
+    @media screen and (max-width: 760px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  &__info {
+    &-title {
+      margin: 0 0 5px;
+      font-size: 18px;
+      line-height: 21px;
+      font-weight: 400;
+      color: $blackColor;
+    }
+    &-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    &-item {
+      font-size: 14px;
+      line-height: 16px;
+      color: $darkGrayColor;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      &::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        background-color: $grayColor;
+        display: block;
+      }
+    }
+  }
+  &__blocks {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    @media screen and (max-width: 1220px) {
+      flex-direction: column;      
+      align-items: stretch;
+    }
+  }
+  &__block {
+    padding: 20px;
+    min-width: 320px;
+    box-sizing: border-box;
+    background-color: $lightColor;
+    border-radius: 10px;
+    @media screen and (max-width: 760px) {
+      min-width: 100%;
+    }
+    @media screen and (max-width: 460px) {
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+  &__price {
+    display: block;
+    font-size: 28px;
+    line-height: 32px;
+    color: $darkGrayColor;
+  }
+  &__button {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 18px;
+    @media screen and (max-width: 460px) {
+      width: 100%;
+    }
+  }
+  &__params-block {
+    margin: 10px 0;
   }
 }
