@@ -26,7 +26,7 @@ function Card({ id, title, price, images, sizes, types, rating, info }) {
           {title}
         </Link>
       </h2>
-      <ParamsBlock />
+      <ParamsBlock params={{ sizes, types }} className="card__params-block" />
       <div className="card__footer">
         <span className="card__price">от {price} ₽</span>
         <button

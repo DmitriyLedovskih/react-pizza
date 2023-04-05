@@ -9,6 +9,9 @@ function Pizza() {
   const item = JSON.parse(localStorage.getItem("item"));
   const cartItem = useSelector(selectCartItemById(item.id));
 
+  const sizes = item.sizes;
+  const types = item.types;
+
   const count = cartItem && cartItem.count;
 
   const dispatch = useDispatch();
@@ -33,7 +36,10 @@ function Pizza() {
           </div>
           <div className="pizza-page__block">
             <span className="pizza-page__price">{item.price} ₽</span>
-            <ParamsBlock className="pizza-page__params-block" />
+            <ParamsBlock
+              params={{ sizes, types }}
+              className="pizza-page__params-block"
+            />
             <button
               className="pizza-page__button button button_type_primary"
               onClick={() => dispatch(addToCart(item))}

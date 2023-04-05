@@ -6,16 +6,15 @@ import {
   setActiveType,
 } from "../redux/slices/itemsSlice";
 
-function ParamsBlock({ className }) {
-  const item = JSON.parse(localStorage.getItem("item"));
+function ParamsBlock({ params, className }) {
   const { typeNames, activeSize, activeType } = useSelector(selectItemsData);
   const dispatch = useDispatch();
 
   return (
     <div className={`card__block ${className}`}>
       <ul className="card__block-list">
-        {item.types.map((typeId) => (
-          <li className="card__block-item" key={typeId}>
+        {params.types.map((typeId, index) => (
+          <li className="card__block-item" key={index}>
             <button
               className={`card__block-button button ${
                 activeType === typeId ? "card__block-button_active" : ""
@@ -29,7 +28,7 @@ function ParamsBlock({ className }) {
         ))}
       </ul>
       <ul className="card__block-list">
-        {item.sizes.map((size, index) => (
+        {params.sizes.map((size, index) => (
           <li className="card__block-item" key={index}>
             <button
               className={`card__block-button button ${
