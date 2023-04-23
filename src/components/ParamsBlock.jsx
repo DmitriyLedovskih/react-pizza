@@ -6,41 +6,42 @@ import {
   setActiveType,
 } from "../redux/slices/itemsSlice";
 
-function ParamsBlock({ params, className }) {
+function ParamsBlock({ className, types, sizes }) {
   const { typeNames, activeSize, activeType } = useSelector(selectItemsData);
   const dispatch = useDispatch();
-
   return (
     <div className={`card__block ${className}`}>
       <ul className="card__block-list">
-        {params.types.map((typeId, index) => (
-          <li className="card__block-item" key={index}>
-            <button
-              className={`card__block-button button ${
-                activeType === typeId ? "card__block-button_active" : ""
-              }`}
-              type="button"
-              onClick={() => dispatch(setActiveType(typeId))}
-            >
-              {typeNames[typeId]}
-            </button>
-          </li>
-        ))}
+        {types &&
+          types.map((typeId, index) => (
+            <li className="card__block-item" key={index}>
+              <button
+                className={`card__block-button button ${
+                  activeType === typeId ? "card__block-button_active" : ""
+                }`}
+                type="button"
+                onClick={() => dispatch(setActiveType(typeId))}
+              >
+                {typeNames[typeId]}
+              </button>
+            </li>
+          ))}
       </ul>
       <ul className="card__block-list">
-        {params.sizes.map((size, index) => (
-          <li className="card__block-item" key={index}>
-            <button
-              className={`card__block-button button ${
-                activeSize === index ? "card__block-button_active" : ""
-              }`}
-              type="button"
-              onClick={() => dispatch(setActiveSize(index))}
-            >
-              {size} см.
-            </button>
-          </li>
-        ))}
+        {sizes &&
+          sizes.map((size, index) => (
+            <li className="card__block-item" key={index}>
+              <button
+                className={`card__block-button button ${
+                  activeSize === index ? "card__block-button_active" : ""
+                }`}
+                type="button"
+                onClick={() => dispatch(setActiveSize(index))}
+              >
+                {size} см.
+              </button>
+            </li>
+          ))}
       </ul>
     </div>
   );

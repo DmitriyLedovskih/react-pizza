@@ -1,13 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectItemsData } from "../redux/slices/itemsSlice";
 
 function Slider() {
-  const item = JSON.parse(localStorage.getItem("item"));
+  const { item } = useSelector(selectItemsData);
   const [mainImage, setMainImage] = React.useState(item.images[0]);
   const [imageActive, setImageActive] = React.useState(0);
   function onClickImage(evt, index) {
     setMainImage(evt.target.currentSrc);
     setImageActive(index);
   }
+
   return (
     <div className="slider">
       <img src={mainImage} alt={item.title} className="slider__image" />

@@ -1,13 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   dicrementCount,
   incrementCount,
   removeItem,
 } from "../redux/slices/cartSlice";
+import { selectItemsData } from "../redux/slices/itemsSlice";
 
 function CartCard({ id, images, title, type, size, price, count }) {
   const dispatch = useDispatch();
+  const { typeNames } = useSelector(selectItemsData);
+
   return (
     <article className="cart__card cart__row">
       <div className="cart__card-block cart__row">
@@ -15,7 +18,7 @@ function CartCard({ id, images, title, type, size, price, count }) {
         <div className="cart__card-content">
           <h2 className="cart__card-title">{title}</h2>
           <p className="cart__card-subtitle">
-            {type} тесто, {size} см.
+            {typeNames[type]} тесто, {size} см.
           </p>
         </div>
       </div>

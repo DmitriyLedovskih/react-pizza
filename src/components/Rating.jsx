@@ -1,26 +1,23 @@
 import React from "react";
 import { ReactComponent as StarIcon } from "../assets/images/star_icon.svg";
+import { selectItemsData } from "../redux/slices/itemsSlice";
+import { useSelector } from "react-redux";
 
-function Rating() {
-  const [rating, setRating] = React.useState(0);
-  const [hover, setHover] = React.useState(0);
-  const item = JSON.parse(localStorage.getItem("item"));
+function Rating({ className }) {
+  const { item } = useSelector(selectItemsData);
   return (
-    <p className="rating">
-      <div className="rating__icons">
+    <p className={`rating ${className}`}>
+      <span className="rating__icons">
         {[...new Array(5)].map((_, index) => (
           <StarIcon
             key={index}
             className={`rating__icon ${
-              index < rating ? "rating__icon_active" : ""
-            } ${index < hover ? " rating__icon_hover" : ""}`}
-            onClick={() => setRating(index + 1)}
-            onMouseEnter={() => setHover(index + 1)}
-            onMouseLeave={() => setHover(0)}
+              index < item.rating ? "rating__icon_active" : ""
+            }`}
           />
         ))}
-      </div>
-      {item.rating} отзывов
+      </span>
+      {item.reviews} отзывов
     </p>
   );
 }

@@ -5,10 +5,8 @@ export const fetchItems = createAsyncThunk(
   async (params) => {
     const { categoryId, sortingItem, searchValue, currentPage } = params;
     const res = await fetch(
-      `https://640f1a654ed25579dc45daf1.mockapi.io/items?${
-        categoryId > 0 ? `category=${categoryId}` : ""
-      }&sortBy=${sortingItem.sortProperty}&order=${sortingItem.order}${
-        searchValue ? `&search=${searchValue}` : ""
+      `https://6442fcd190738aa7c069c92c.mockapi.io/items?${categoryId > 0 ? `category=${categoryId}` : ""
+      }&sortBy=${sortingItem.sortProperty}&order=${sortingItem.order}${searchValue ? `&search=${searchValue}` : ""
       }&page=${currentPage || 1}&limit=8`
     );
     const data = await res.json();
@@ -34,7 +32,7 @@ export const itemsSlice = createSlice({
     },
     setItem(state, actions) {
       state.item = actions.payload;
-      localStorage.setItem("item", JSON.stringify(actions.payload));
+      localStorage.setItem('item', JSON.stringify(actions.payload));
     },
     setActiveType(state, actions) {
       state.activeType = actions.payload;

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://dmitriyledovskih.github.io/react-pizza",
   "dependencies": {
+    "@react-spring/web": "^9.7.2",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
