@@ -2,8 +2,8 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 
-function MainLayout() {
-  const [isVisible, setIsVisible] = React.useState(false);
+const MainLayout: React.FC = () => {
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
   function visibleToTop() {
     if (window.scrollY >= 40) {
       setIsVisible(true);
@@ -31,6 +31,6 @@ function MainLayout() {
       ></button>
     </div>
   );
-}
+};
 
 export default MainLayout;

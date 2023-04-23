@@ -6,9 +6,12 @@ import Search from "./SearchForm";
 import { useSelector } from "react-redux";
 import { selectCart } from "../redux/slices/cartSlice";
 
-function Header() {
+const Header: React.FC = () => {
   const { totalPrice, items } = useSelector(selectCart);
-  const totalCount = items.reduce((acc, item) => acc + item.count, 0);
+  const totalCount = items.reduce(
+    (acc: number, item: { count: number }) => acc + item.count,
+    0
+  );
   return (
     <header className="header">
       <div className="header__row">
@@ -39,6 +42,6 @@ function Header() {
       <Search />
     </header>
   );
-}
+};
 
 export default Header;

@@ -4,7 +4,22 @@ import { selectItemsData } from "../redux/slices/itemsSlice";
 import Card from "./Card";
 import Skeleton from "./Skeleton";
 
-function Cards({ title }) {
+type CardsProps = {
+  title: string;
+};
+
+type CardsItem = {
+  id: string;
+  images: string[];
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  rating: number;
+  info: string[];
+};
+
+const Cards: React.FC<CardsProps> = ({ title }) => {
   const { items, status } = useSelector(selectItemsData);
 
   return (
@@ -18,11 +33,11 @@ function Cards({ title }) {
         <div className="cards__list">
           {status === "loading"
             ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-            : items.map((item) => <Card {...item} key={item.id} />)}
+            : items.map((item: CardsItem) => <Card {...item} key={item.id} />)}
         </div>
       )}
     </section>
   );
-}
+};
 
 export default Cards;

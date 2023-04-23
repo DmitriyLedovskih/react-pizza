@@ -6,7 +6,7 @@ import { fetchItems, selectItemsData } from "../redux/slices/itemsSlice";
 import { selectSearch } from "../redux/slices/searchSlice";
 import Pagination from "../components/Pagination";
 
-function Search() {
+const Search: React.FC = () => {
   const { categoryId, sortingItem } = useSelector(selectFilter);
   const { searchValue } = useSelector(selectSearch);
   const { items } = useSelector(selectItemsData);
@@ -14,6 +14,8 @@ function Search() {
 
   React.useEffect(() => {
     dispatch(
+      // На время потом исправлю
+      // @ts-ignore
       fetchItems({
         categoryId,
         sortingItem,
@@ -32,6 +34,6 @@ function Search() {
       />
     </div>
   );
-}
+};
 
 export default Search;

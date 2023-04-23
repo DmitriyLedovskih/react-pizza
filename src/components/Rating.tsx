@@ -3,7 +3,11 @@ import { ReactComponent as StarIcon } from "../assets/images/star_icon.svg";
 import { selectItemsData } from "../redux/slices/itemsSlice";
 import { useSelector } from "react-redux";
 
-function Rating({ className }) {
+type RatingProps = {
+  className: string;
+};
+
+const Rating: React.FC<RatingProps> = ({ className }) => {
   const { item } = useSelector(selectItemsData);
   return (
     <p className={`rating ${className}`}>
@@ -20,6 +24,6 @@ function Rating({ className }) {
       {item.reviews} отзывов
     </p>
   );
-}
+};
 
 export default Rating;

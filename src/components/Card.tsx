@@ -6,15 +6,44 @@ import { selectItemsData, setItem } from "../redux/slices/itemsSlice";
 import ParamsBlock from "./ParamsBlock";
 import { ReactComponent as StarIcon } from "../assets/images/star_icon.svg";
 
-function Card({ id, title, price, images, sizes, types, rating, info }) {
+type CardItem = {
+  id: string;
+  images: string[];
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  rating: number;
+  info: string[];
+};
+
+type CartItem = {
+  id: string;
+  images: string[];
+  title: string;
+  type: number;
+  size: number;
+  price: number;
+};
+
+const Card: React.FC<CardItem> = ({
+  id,
+  title,
+  price,
+  images,
+  sizes,
+  types,
+  rating,
+  info,
+}) => {
   const counter = useSelector(selectCartItemById(id));
   const { activeSize, activeType } = useSelector(selectItemsData);
 
-  const count = counter && counter.count;
+  const count: number = counter && counter.count;
 
   const dispatch = useDispatch();
 
-  const cardItem = {
+  const cardItem: CardItem = {
     id,
     title,
     price,
@@ -25,15 +54,13 @@ function Card({ id, title, price, images, sizes, types, rating, info }) {
     info,
   };
 
-  const cartItem = {
+  const cartItem: CartItem = {
     id,
     title,
     price,
     images,
     size: sizes[activeSize],
     type: types[activeType],
-    rating,
-    info,
   };
 
   return (
@@ -66,6 +93,6 @@ function Card({ id, title, price, images, sizes, types, rating, info }) {
       </div>
     </article>
   );
-}
+};
 
 export default Card;

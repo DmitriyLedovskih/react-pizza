@@ -1,3 +1,5 @@
+// На время потом исправлю
+// @ts-ignore
 import debounce from "lodash.debounce";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -5,22 +7,23 @@ import { useNavigate } from "react-router-dom";
 import { onClickCategory } from "../redux/slices/filterSlice";
 import { onChangeSearch } from "../redux/slices/searchSlice";
 
-function SearchForm() {
-  const [localValue, setLocalValue] = React.useState("");
+const SearchForm: React.FC = () => {
+  const [localValue, setLocalValue] = React.useState<string>("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [active, setActive] = React.useState(false);
-  const [isFocus, setIsFocus] = React.useState(false);
-  const inputRef = React.useRef();
+  const [active, setActive] = React.useState<boolean>(false);
+  const [isFocus, setIsFocus] = React.useState<boolean>(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const searchDobounce = React.useCallback(
-    debounce((value) => {
+    debounce((value: string) => {
       dispatch(onChangeSearch(value));
     }, 500),
     []
   );
 
-  function onChange(evt) {
+  // На время потом исправлю
+  function onChange(evt: any) {
     searchDobounce(evt.target.value);
     setLocalValue(evt.target.value);
     evt.target.value ? navigate("/search") : navigate("/");
@@ -30,7 +33,7 @@ function SearchForm() {
   function onClickClear() {
     dispatch(onChangeSearch(""));
     setLocalValue("");
-    inputRef.current.focus();
+    inputRef.current?.focus();
     navigate("/");
   }
 
@@ -63,6 +66,6 @@ function SearchForm() {
       ></button>
     </div>
   );
-}
+};
 
 export default SearchForm;

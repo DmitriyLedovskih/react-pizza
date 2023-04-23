@@ -5,27 +5,33 @@ import Slider from "../components/Slider";
 import ParamsBlock from "../components/ParamsBlock";
 import Rating from "../components/Rating";
 import { selectItemsData, setItem } from "../redux/slices/itemsSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+// На время потом исправлю
+// @ts-ignore
 import { animated, useSpring } from "@react-spring/web";
 
-function Pizza() {
+const Pizza: React.FC = () => {
   const { id } = useParams();
-  // const { item } = useSelector(selectItemsData);
-  const item = JSON.parse(localStorage.getItem("item"));
+  const item = JSON.parse(localStorage.getItem("item") || "{}");
   const cartItem = useSelector(selectCartItemById(item.id));
-  console.log(item);
 
   const count = cartItem && cartItem.count;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     async function fetchPizza() {
-      const res = await fetch(
-        `https://6442fcd190738aa7c069c92c.mockapi.io/items/${id}`
-      );
-      const data = await res.json();
-      dispatch(setItem(data));
+      try {
+        const res = await fetch(
+          `https://6442fcd190738aa7c069c92c.mockapi.io/items/${id}`
+        );
+        const data = await res.json();
+        dispatch(setItem(data));
+      } catch (error) {
+        console.log(error);
+        navigate("/");
+      }
     }
     fetchPizza();
   }, []);
@@ -53,6 +59,10 @@ function Pizza() {
     delay: 400,
   });
 
+  if (!item) {
+    return <>loading</>;
+  }
+
   return (
     <div className="pizza-page">
       <animated.div
@@ -71,7 +81,7 @@ function Pizza() {
             <h2 className="pizza-page__info-title">Ингредиенты:</h2>
             <ul className="pizza-page__info-list">
               {item.info &&
-                item.info.map((element, index) => (
+                item.info.map((element: string, index: number) => (
                   <li className="pizza-page__info-item" key={index}>
                     {element}
                   </li>
@@ -101,6 +111,6 @@ function Pizza() {
       </div>
     </div>
   );
-}
+};
 
 export default Pizza;

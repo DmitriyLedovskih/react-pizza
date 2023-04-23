@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onClickCategory, selectFilter } from "../redux/slices/filterSlice";
 
-function Categories() {
+const Categories: React.FC = () => {
   const { categoryId, categoryNames } = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   return (
     <ul className="categories">
-      {categoryNames.map((name, index) => (
+      {categoryNames.map((name: string, index: number) => (
         <li className="categories__item" key={index}>
           <button
             type="button"
@@ -23,6 +23,6 @@ function Categories() {
       ))}
     </ul>
   );
-}
+};
 
 export default Categories;

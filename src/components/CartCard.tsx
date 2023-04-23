@@ -7,7 +7,25 @@ import {
 } from "../redux/slices/cartSlice";
 import { selectItemsData } from "../redux/slices/itemsSlice";
 
-function CartCard({ id, images, title, type, size, price, count }) {
+type CartCardProps = {
+  id: string;
+  images: string[];
+  title: string;
+  type: number;
+  size: number;
+  price: number;
+  count: number;
+};
+
+const CartCard: React.FC<CartCardProps> = ({
+  id,
+  images,
+  title,
+  type,
+  size,
+  price,
+  count,
+}) => {
   const dispatch = useDispatch();
   const { typeNames } = useSelector(selectItemsData);
 
@@ -53,6 +71,6 @@ function CartCard({ id, images, title, type, size, price, count }) {
       ></button>
     </article>
   );
-}
+};
 
 export default CartCard;

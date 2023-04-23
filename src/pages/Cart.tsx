@@ -4,9 +4,22 @@ import { Link } from "react-router-dom";
 import CartCard from "../components/CartCard";
 import { removeAllItems, selectCart } from "../redux/slices/cartSlice";
 
-function Cart() {
+type CartItem = {
+  id: string;
+  images: string[];
+  title: string;
+  type: number;
+  size: number;
+  price: number;
+  count: number;
+};
+
+const Cart: React.FC = () => {
   const { items, totalPrice } = useSelector(selectCart);
-  const totalCount = items.reduce((acc, item) => acc + item.count, 0);
+  const totalCount = items.reduce(
+    (acc: number, item: { count: number }) => acc + item.count,
+    0
+  );
 
   const dispatch = useDispatch();
   return (
@@ -24,7 +37,7 @@ function Cart() {
             </button>
           </div>
           <div className="cart__cards">
-            {items.map((item) => (
+            {items.map((item: CartItem) => (
               <CartCard key={item.id} {...item} />
             ))}
           </div>
@@ -67,6 +80,6 @@ function Cart() {
       )}
     </div>
   );
-}
+};
 
 export default Cart;

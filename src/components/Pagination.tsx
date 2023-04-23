@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "../redux/slices/filterSlice";
+import { selectFilter, setCurrentPage } from "../redux/slices/filterSlice";
 
-function Pagination() {
+const Pagination: React.FC = () => {
   const dispatch = useDispatch();
-  const currentPage = useSelector((state) => state.filter.currentPage);
+  const { currentPage } = useSelector(selectFilter);
   return (
     <section className="pagination">
       <ul className="pagination__list">
@@ -54,6 +54,6 @@ function Pagination() {
       </ul>
     </section>
   );
-}
+};
 
 export default Pagination;

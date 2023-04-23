@@ -8,7 +8,7 @@ import { selectSearch } from "../redux/slices/searchSlice";
 import { selectFilter } from "../redux/slices/filterSlice";
 import Pagination from "../components/Pagination";
 
-function Home() {
+const Home: React.FC = () => {
   const { categoryId, sortingItem, categoryNames, currentPage } =
     useSelector(selectFilter);
   const { searchValue } = useSelector(selectSearch);
@@ -16,6 +16,8 @@ function Home() {
 
   React.useEffect(() => {
     dispatch(
+      // На время потом исправлю
+      // @ts-ignore
       fetchItems({
         categoryId,
         sortingItem,
@@ -35,6 +37,6 @@ function Home() {
       <Pagination />
     </>
   );
-}
+};
 
 export default Home;

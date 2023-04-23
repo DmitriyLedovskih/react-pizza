@@ -6,7 +6,17 @@ import {
   setActiveType,
 } from "../redux/slices/itemsSlice";
 
-function ParamsBlock({ className, types, sizes }) {
+type ParamsBlockProps = {
+  className: string;
+  types: number[];
+  sizes: number[];
+};
+
+const ParamsBlock: React.FC<ParamsBlockProps> = ({
+  className,
+  types,
+  sizes,
+}) => {
   const { typeNames, activeSize, activeType } = useSelector(selectItemsData);
   const dispatch = useDispatch();
   return (
@@ -45,6 +55,6 @@ function ParamsBlock({ className, types, sizes }) {
       </ul>
     </div>
   );
-}
+};
 
 export default ParamsBlock;

@@ -2,11 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectItemsData } from "../redux/slices/itemsSlice";
 
-function Slider() {
+const Slider: React.FC = () => {
   const { item } = useSelector(selectItemsData);
-  const [mainImage, setMainImage] = React.useState(item.images[0]);
-  const [imageActive, setImageActive] = React.useState(0);
-  function onClickImage(evt, index) {
+  const [mainImage, setMainImage] = React.useState<string>(item.images[0]);
+  const [imageActive, setImageActive] = React.useState<number>(0);
+  function onClickImage(evt: any, index: number) {
     setMainImage(evt.target.currentSrc);
     setImageActive(index);
   }
@@ -15,7 +15,7 @@ function Slider() {
     <div className="slider">
       <img src={mainImage} alt={item.title} className="slider__image" />
       <ul className="slider__mini-list">
-        {item.images.map((image, index) => (
+        {item.images.map((image: string, index: number) => (
           <li className="slider__mini-item" key={index}>
             <img
               src={image}
@@ -30,6 +30,6 @@ function Slider() {
       </ul>
     </div>
   );
-}
+};
 
 export default Slider;

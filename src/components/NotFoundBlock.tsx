@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function NotFoundBlock() {
+const NotFoundBlock: React.FC = () => {
   return (
     <div className="not-found">
       <h1 className="not-found__title title">404 страница не найдена</h1>
@@ -14,6 +14,6 @@ function NotFoundBlock() {
       </Link>
     </div>
   );
-}
+};
 
 export default NotFoundBlock;
