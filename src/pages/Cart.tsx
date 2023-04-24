@@ -8,10 +8,11 @@ type CartItem = {
   id: string;
   images: string[];
   title: string;
-  type: number;
-  size: number;
+  types: number[];
+  sizes: number[];
   price: number;
-  count: number;
+  rating: number;
+  info: string[];
 };
 
 const Cart: React.FC = () => {

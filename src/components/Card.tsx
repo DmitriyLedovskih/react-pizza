@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { selectItemsData, setItem } from "../redux/slices/itemsSlice";
 import ParamsBlock from "./ParamsBlock";
 import { ReactComponent as StarIcon } from "../assets/images/star_icon.svg";
+import { selectFilter } from "../redux/slices/filterSlice";
 
 type CardItem = {
   id: string;
@@ -15,15 +16,6 @@ type CardItem = {
   price: number;
   rating: number;
   info: string[];
-};
-
-type CartItem = {
-  id: string;
-  images: string[];
-  title: string;
-  type: number;
-  size: number;
-  price: number;
 };
 
 const Card: React.FC<CardItem> = ({
@@ -37,9 +29,10 @@ const Card: React.FC<CardItem> = ({
   info,
 }) => {
   const counter = useSelector(selectCartItemById(id));
-  const { activeSize, activeType } = useSelector(selectItemsData);
-
   const count: number = counter && counter.count;
+  const { activeSize, activeType } = useSelector(selectItemsData);
+  const { categoryName } = useSelector(selectFilter);
+  const isCategoryClose = categoryName === "Закрытые";
 
   const dispatch = useDispatch();
 
@@ -53,18 +46,8 @@ const Card: React.FC<CardItem> = ({
     rating,
     info,
   };
-
-  const cartItem: CartItem = {
-    id,
-    title,
-    price,
-    images,
-    size: sizes[activeSize],
-    type: types[activeType],
-  };
-
   return (
-    <article className="card">
+    <article className={`card ${isCategoryClose ? "card_disabled" : ""}`}>
       <div className="card__rating">
         <StarIcon className="card__rating-icon" />
         <span className="card__rating-text">{rating}</span>
@@ -84,7 +67,7 @@ const Card: React.FC<CardItem> = ({
         <span className="card__price">от {price} ₽</span>
         <button
           className="card__button button button_type_primary-outlined"
-          onClick={() => dispatch(addToCart(cartItem))}
+          onClick={() => dispatch(addToCart(cardItem))}
         >
           <span className="card__button-icon">+</span>
           Добавить

@@ -4,37 +4,65 @@ import {
   dicrementCount,
   incrementCount,
   removeItem,
+  selectCartItemById,
 } from "../redux/slices/cartSlice";
-import { selectItemsData } from "../redux/slices/itemsSlice";
+import { selectItemsData, setItem } from "../redux/slices/itemsSlice";
+import { Link } from "react-router-dom";
 
 type CartCardProps = {
   id: string;
   images: string[];
   title: string;
-  type: number;
-  size: number;
+  types: number[];
+  sizes: number[];
   price: number;
-  count: number;
+  rating: number;
+  info: string[];
 };
 
 const CartCard: React.FC<CartCardProps> = ({
   id,
   images,
   title,
-  type,
-  size,
+  types,
+  sizes,
   price,
-  count,
+  rating,
+  info,
 }) => {
   const dispatch = useDispatch();
-  const { typeNames } = useSelector(selectItemsData);
+  const { typeNames, activeType, activeSize } = useSelector(selectItemsData);
+  const counter = useSelector(selectCartItemById(id));
+  const count: number = counter && counter.count;
+
+  const cardItem = {
+    id,
+    images,
+    title,
+    types,
+    sizes,
+    price,
+    rating,
+    info,
+  };
+
+  const type = types[activeType];
+  const size = sizes[activeSize];
 
   return (
     <article className="cart__card cart__row">
       <div className="cart__card-block cart__row">
         <img src={images[0]} alt={title} className="cart__card-image" />
         <div className="cart__card-content">
-          <h2 className="cart__card-title">{title}</h2>
+          <h2 className="cart__card-title">
+            <Link
+              to={`/pizza/${id}`}
+              className="cart__card-link"
+              onClick={() => dispatch(setItem(cardItem))}
+            >
+              {title}
+            </Link>
+          </h2>
           <p className="cart__card-subtitle">
             {typeNames[type]} тесто, {size} см.
           </p>

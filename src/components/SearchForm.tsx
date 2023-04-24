@@ -22,20 +22,19 @@ const SearchForm: React.FC = () => {
     []
   );
 
-  // На время потом исправлю
-  function onChange(evt: any) {
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     searchDobounce(evt.target.value);
     setLocalValue(evt.target.value);
     evt.target.value ? navigate("/search") : navigate("/");
     dispatch(onClickCategory(0));
-  }
+  };
 
-  function onClickClear() {
+  const onClickClear = () => {
     dispatch(onChangeSearch(""));
     setLocalValue("");
     inputRef.current?.focus();
     navigate("/");
-  }
+  };
 
   window.onload = () => {
     navigate("/");

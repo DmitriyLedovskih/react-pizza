@@ -17,8 +17,18 @@ const ParamsBlock: React.FC<ParamsBlockProps> = ({
   types,
   sizes,
 }) => {
-  const { typeNames, activeSize, activeType } = useSelector(selectItemsData);
+  const { typeNames } = useSelector(selectItemsData);
   const dispatch = useDispatch();
+  const [typeIndex, setTypeIndex] = React.useState<number>(0);
+  const [sizeIndex, setSizeIndex] = React.useState<number>(0);
+  const onClickType = (typeId: number) => {
+    setTypeIndex(typeId);
+    dispatch(setActiveType(typeId));
+  };
+  const onClickSize = (index: number) => {
+    setSizeIndex(index);
+    dispatch(setActiveSize(index));
+  };
   return (
     <div className={`card__block ${className}`}>
       <ul className="card__block-list">
@@ -27,10 +37,10 @@ const ParamsBlock: React.FC<ParamsBlockProps> = ({
             <li className="card__block-item" key={index}>
               <button
                 className={`card__block-button button ${
-                  activeType === typeId ? "card__block-button_active" : ""
+                  typeIndex === typeId ? "card__block-button_active" : ""
                 }`}
                 type="button"
-                onClick={() => dispatch(setActiveType(typeId))}
+                onClick={() => onClickType(typeId)}
               >
                 {typeNames[typeId]}
               </button>
@@ -43,10 +53,10 @@ const ParamsBlock: React.FC<ParamsBlockProps> = ({
             <li className="card__block-item" key={index}>
               <button
                 className={`card__block-button button ${
-                  activeSize === index ? "card__block-button_active" : ""
+                  sizeIndex === index ? "card__block-button_active" : ""
                 }`}
                 type="button"
-                onClick={() => dispatch(setActiveSize(index))}
+                onClick={() => onClickSize(index)}
               >
                 {size} см.
               </button>

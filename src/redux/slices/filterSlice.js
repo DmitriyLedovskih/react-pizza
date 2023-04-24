@@ -12,6 +12,8 @@ const initialState = {
     "Закрытые",
   ],
 
+  categoryName: 'Все',
+
   sortingItem: {
     name: "популярности",
     sortProperty: "rating",
@@ -26,6 +28,7 @@ export const filterSlice = createSlice({
   reducers: {
     onClickCategory(state, actions) {
       state.categoryId = actions.payload;
+      state.categoryName = state.categoryNames[state.categoryId];
     },
     onClickSort(state, actions) {
       state.sortingItem = actions.payload;

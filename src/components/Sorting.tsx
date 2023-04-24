@@ -25,8 +25,7 @@ const Sorting: React.FC = () => {
     setIsVisible(false);
   };
 
-  // На время потом исправлю
-  const onClickOutside = (evt: any) => {
+  const onClickOutside = (evt: MouseEvent) => {
     if (evt.target !== sortingRef.current) {
       setIsVisible(false);
     }

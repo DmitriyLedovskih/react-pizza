@@ -6,10 +6,11 @@ const Slider: React.FC = () => {
   const { item } = useSelector(selectItemsData);
   const [mainImage, setMainImage] = React.useState<string>(item.images[0]);
   const [imageActive, setImageActive] = React.useState<number>(0);
-  function onClickImage(evt: any, index: number) {
-    setMainImage(evt.target.currentSrc);
+  const onClickImage = (evt: React.MouseEvent, index: number) => {
+    const target = evt.target as HTMLImageElement;
+    setMainImage(target.currentSrc);
     setImageActive(index);
-  }
+  };
 
   return (
     <div className="slider">

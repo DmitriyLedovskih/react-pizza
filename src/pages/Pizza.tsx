@@ -9,11 +9,14 @@ import { useNavigate, useParams } from "react-router-dom";
 // На время потом исправлю
 // @ts-ignore
 import { animated, useSpring } from "@react-spring/web";
+import { selectFilter } from "../redux/slices/filterSlice";
 
 const Pizza: React.FC = () => {
   const { id } = useParams();
   const item = JSON.parse(localStorage.getItem("item") || "{}");
   const cartItem = useSelector(selectCartItemById(item.id));
+  const { categoryName } = useSelector(selectFilter);
+  const isCategoryClose = categoryName === "Закрытые";
 
   const count = cartItem && cartItem.count;
 
@@ -99,8 +102,11 @@ const Pizza: React.FC = () => {
               sizes={item.sizes}
             />
             <button
-              className="pizza-page__button button button_type_primary"
+              className={`pizza-page__button button button_type_primary ${
+                isCategoryClose ? "button_disabled" : ""
+              }`}
               onClick={() => dispatch(addToCart(item))}
+              disabled={isCategoryClose ? true : false}
             >
               <span className="card__button-icon">+</span>
               Добавить в корзину
