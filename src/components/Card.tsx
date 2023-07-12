@@ -2,12 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, selectCartItemById } from "../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
-import { selectItemsData, setItem } from "../redux/slices/itemsSlice";
+import { setItem } from "../redux/slices/itemsSlice";
 import ParamsBlock from "./ParamsBlock";
 import { ReactComponent as StarIcon } from "../assets/images/star_icon.svg";
 import { selectFilter } from "../redux/slices/filterSlice";
 
-type CardItem = {
+type CardItemType = {
   id: string;
   images: string[];
   title: string;
@@ -16,9 +16,11 @@ type CardItem = {
   price: number;
   rating: number;
   info: string[];
+  count: number;
+  reviews: number;
 };
 
-const Card: React.FC<CardItem> = ({
+const Card: React.FC<CardItemType> = ({
   id,
   title,
   price,
@@ -27,16 +29,15 @@ const Card: React.FC<CardItem> = ({
   types,
   rating,
   info,
+  reviews,
 }) => {
+  const dispatch = useDispatch();
   const counter = useSelector(selectCartItemById(id));
-  const count: number = counter && counter.count;
-  const { activeSize, activeType } = useSelector(selectItemsData);
+  const count: number = counter ? counter.count : 0;
   const { categoryName } = useSelector(selectFilter);
   const isCategoryClose = categoryName === "Закрытые";
 
-  const dispatch = useDispatch();
-
-  const cardItem: CardItem = {
+  const cardItem: CardItemType = {
     id,
     title,
     price,
@@ -45,6 +46,8 @@ const Card: React.FC<CardItem> = ({
     types,
     rating,
     info,
+    count,
+    reviews,
   };
   return (
     <article className={`card ${isCategoryClose ? "card_disabled" : ""}`}>
@@ -71,7 +74,7 @@ const Card: React.FC<CardItem> = ({
         >
           <span className="card__button-icon">+</span>
           Добавить
-          {count && <span className="card__button-counter">{count}</span>}
+          {count !== 0 && <span className="card__button-counter">{count}</span>}
         </button>
       </div>
     </article>

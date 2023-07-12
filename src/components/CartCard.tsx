@@ -9,7 +9,7 @@ import {
 import { selectItemsData, setItem } from "../redux/slices/itemsSlice";
 import { Link } from "react-router-dom";
 
-type CartCardProps = {
+type CartCardType = {
   id: string;
   images: string[];
   title: string;
@@ -18,9 +18,11 @@ type CartCardProps = {
   price: number;
   rating: number;
   info: string[];
+  count: number;
+  reviews: number;
 };
 
-const CartCard: React.FC<CartCardProps> = ({
+const CartCard: React.FC<CartCardType> = ({
   id,
   images,
   title,
@@ -29,13 +31,14 @@ const CartCard: React.FC<CartCardProps> = ({
   price,
   rating,
   info,
+  reviews,
 }) => {
   const dispatch = useDispatch();
   const { typeNames, activeType, activeSize } = useSelector(selectItemsData);
   const counter = useSelector(selectCartItemById(id));
-  const count: number = counter && counter.count;
+  const count: number = counter ? counter.count : 0;
 
-  const cardItem = {
+  const cardItem: CartCardType = {
     id,
     images,
     title,
@@ -44,6 +47,8 @@ const CartCard: React.FC<CartCardProps> = ({
     price,
     rating,
     info,
+    count,
+    reviews,
   };
 
   const type = types[activeType];
@@ -77,8 +82,11 @@ const CartCard: React.FC<CartCardProps> = ({
         <div className="cart__row">
           <button
             type="button"
-            className="cart__card-buttonCounter cart__card-button button button_type_primary-outlined"
+            className={`cart__card-buttonCounter cart__card-button button button_type_primary-outlined ${
+              count === 1 ? "button_disabled" : ""
+            }`}
             onClick={() => dispatch(dicrementCount(id))}
+            disabled={count === 1}
           >
             -
           </button>

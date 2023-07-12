@@ -4,9 +4,8 @@ import { addToCart, selectCartItemById } from "../redux/slices/cartSlice";
 import Slider from "../components/Slider";
 import ParamsBlock from "../components/ParamsBlock";
 import Rating from "../components/Rating";
-import { selectItemsData, setItem } from "../redux/slices/itemsSlice";
+import { setItem } from "../redux/slices/itemsSlice";
 import { useNavigate, useParams } from "react-router-dom";
-// На время потом исправлю
 // @ts-ignore
 import { animated, useSpring } from "@react-spring/web";
 import { selectFilter } from "../redux/slices/filterSlice";

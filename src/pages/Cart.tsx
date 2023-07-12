@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartCard from "../components/CartCard";
 import { removeAllItems, selectCart } from "../redux/slices/cartSlice";
 
@@ -13,9 +13,12 @@ type CartItem = {
   price: number;
   rating: number;
   info: string[];
+  count: number;
+  reviews: number;
 };
 
 const Cart: React.FC = () => {
+  const navigate = useNavigate();
   const { items, totalPrice } = useSelector(selectCart);
   const totalCount = items.reduce(
     (acc: number, item: { count: number }) => acc + item.count,
@@ -56,12 +59,12 @@ const Cart: React.FC = () => {
             <Link to="/" className="button button_type_light cart__button">
               Вернуться назад
             </Link>
-            <a
-              href="#"
+            <Link
+              to="#"
               className="button button_type_primary-outlined cart__button"
             >
               Оплатить
-            </a>
+            </Link>
           </div>
         </>
       ) : (
@@ -71,12 +74,13 @@ const Cart: React.FC = () => {
             Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы
             заказать пиццу, перейди на главную страницу.
           </p>
-          <Link
-            to="/"
+          <button
             className="cart__empty-button button button_type_primary"
+            onClick={() => navigate(-1)}
+            type="button"
           >
             Вернуться назад
-          </Link>
+          </button>
         </div>
       )}
     </div>

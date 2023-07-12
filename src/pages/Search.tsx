@@ -1,25 +1,25 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Cards from "../components/Cards";
 import { selectFilter } from "../redux/slices/filterSlice";
 import { fetchItems, selectItemsData } from "../redux/slices/itemsSlice";
 import { selectSearch } from "../redux/slices/searchSlice";
 import Pagination from "../components/Pagination";
+import { useAppDispatch } from "../redux/store";
 
 const Search: React.FC = () => {
-  const { categoryId, sortingItem } = useSelector(selectFilter);
+  const { categoryId, sortingItem, currentPage } = useSelector(selectFilter);
   const { searchValue } = useSelector(selectSearch);
   const { items } = useSelector(selectItemsData);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     dispatch(
-      // На время потом исправлю
-      // @ts-ignore
       fetchItems({
         categoryId,
         sortingItem,
         searchValue,
+        currentPage,
       })
     );
   }, [categoryId, sortingItem, searchValue]);

@@ -1,16 +1,20 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import Header from "../components/Header";
 
 const MainLayout: React.FC = () => {
+  const { id } = useParams();
+  const { pathname } = useLocation();
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  function visibleToTop() {
+  const isHeader = ["/", "/cart", "/search", `/pizza/${id}`].includes(pathname);
+
+  const visibleToTop = () => {
     if (window.scrollY >= 40) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
     }
-  }
+  };
   React.useEffect(() => {
     document.addEventListener("scroll", visibleToTop);
     return () => {
@@ -19,7 +23,7 @@ const MainLayout: React.FC = () => {
   }, []);
   return (
     <div className="container">
-      <Header />
+      {isHeader && <Header />}
       <main className="content">
         <Outlet />
       </main>

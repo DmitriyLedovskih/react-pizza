@@ -17,6 +17,8 @@ type CardsItem = {
   price: number;
   rating: number;
   info: string[];
+  count: number;
+  reviews: number;
 };
 
 const Cards: React.FC<CardsProps> = ({ title }) => {
